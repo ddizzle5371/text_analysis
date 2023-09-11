@@ -1,14 +1,19 @@
 from flask import Flask, jsonify, request
+
 import redis
+import os
+
+host = os.environ['HOST']
+port = os.environ['PORT']
 
 app = Flask(__name__)
-registry = redis.Redis(host='localhost', port=6379)
+registry = redis.Redis(host="registry")
 
 
 @app.route('/services', methods=['GET'])
-def get_services():
-    services = [s.decode('utf-8') for s in registry.keys()]
-    return jsonify(services), 200
+def list_services():
+    services = {k.decode('utf-8'): registry.get(k).decode('utf-8') for k in registry.keys()}
+    return jsonify({'message': services}), 200
 
 
 @app.route('/services', methods=['POST'])
@@ -37,4 +42,4 @@ def remove_service(service_name):
 
 
 if __name__ == '__main__':
-    app.run(threaded=True, host='0.0.0.0', debug=True, port=8001)
+    app.run(host=host, port=int(port), debug=True)

@@ -1,9 +1,14 @@
 from flask import Flask, jsonify, request
 
+import os
+
+host = os.environ['HOST']
+port = os.environ['PORT']
+
 app = Flask(__name__)
 
 
-@app.route('/word_count', methods=['POST'])
+@app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
     text = data.get('text')
@@ -16,4 +21,4 @@ def analyze():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True, host='0.0.0.0', debug=True, port=8004)
+    app.run(host=host, port=int(port), debug=True)
