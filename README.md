@@ -3,12 +3,12 @@
 This text analysis microservices application is written in Python using Flask. The service discovery api manages
 different text analysis services via a service registry, providing endpoints to add, remove, and list the services.
 The central microservice, namely main, provides an endpoint that accepts the name of the service and text, which 
-queries the service by the name in the service registry and forward the text to the service. It is guaranteed only one instance 
+queries the service registry by the service name and forward the text to the service. It is guaranteed only one instance 
 of the service registry is created within the context of an application process, throttling the number of connections 
 to the Redis client of the service registry with a locking mechanism.
 
 The application is dockerized and can be easily set up with minimal commands. Additionally, docker-compose gives
-flexibility to adjust host and port numbers from the file and reflect the change across the entire application. 
+flexibility to adjust host and port numbers from a single file and reflect the change across the entire application. 
 Redis was utilized to store the serivce_name to service_url mapping to accomodate a runtime environment with minimal
 requirements for the application to run. (i.e Consul was a good alternative to Redis, but it was requiring extra network
 configurations on the development machine on macOS). 
