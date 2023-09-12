@@ -81,7 +81,7 @@ Content-Type: application/json
   "message": {
     "sentiment_analysis": "http://sentiment_analysis:8003/analyze",
     "entity_recognition": "http://entity_recognition:8002/analyze",
-    "word_count": "http://word_count:8002/analyze"
+    "word_count": "http://word_count:8004/analyze"
 }
 ```
 
@@ -135,8 +135,9 @@ Content-Type: application/json
 ```
 
 NOTES 
-  - Ensure service_name and port_number match the values in docker-compose.yml.
+  - Ensure `service_name` and `port_number` match the values in docker-compose.yml.
   - Every endpoint can be reached from public via `http://{host}:{port}/method_name`.
+  - Every dockerized app can only be communicating with one another via `http://{service_name}:{service_port}/method_name`
   - To demonstrate the main microservice forwarding request to the corresponding text anaylsis service,
     the service urls must be same as dockerized container ip addresses. In other words, 
     - make a POST request 
