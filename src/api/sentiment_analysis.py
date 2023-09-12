@@ -4,6 +4,7 @@ import os
 
 host = os.environ['HOST']
 port = os.environ['PORT']
+sentiments = ["positive", "neutral", "negative"]
 
 app = Flask(__name__)
 
@@ -16,8 +17,10 @@ def analyze():
     if not text:
         return jsonify({'error': 'Invalid request body'}), 400
 
-    words = text.split()
-    return jsonify({'message': str(len(words))}), 200
+    if len(text) > 4096:
+        return jsonify({'error': 'Invalid text size'}), 400
+
+    return jsonify({'message': sentiments[(len(sentiments) - 1) % len(text)]}), 200
 
 
 if __name__ == '__main__':

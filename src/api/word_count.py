@@ -1,12 +1,16 @@
 from flask import Flask, jsonify, request
 
 import os
+import re
 
 host = os.environ['HOST']
 port = os.environ['PORT']
-sentiments = ["positive", "neutral", "negative"]
 
 app = Flask(__name__)
+
+
+def find_words(text: str):
+    return re.findall(r'\w+', text)
 
 
 @app.route('/analyze', methods=['POST'])
@@ -17,7 +21,11 @@ def analyze():
     if not text:
         return jsonify({'error': 'Invalid request body'}), 400
 
-    return jsonify({'message': sentiments[(len(sentiments) - 1) % len(text)]}), 200
+    if len(text) > 4096:
+        return jsonify({'error': 'Invalid text size'}), 400
+
+    words = find_words(text)
+    return jsonify({'message': str(len(words))}), 200
 
 
 if __name__ == '__main__':

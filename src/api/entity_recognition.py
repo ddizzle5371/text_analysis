@@ -17,6 +17,9 @@ def analyze():
     if not text:
         return jsonify({'error': 'Invalid request body'}), 400
 
+    if len(text) > 4096:
+        return jsonify({'error': 'Invalid text size'}), 400
+
     return jsonify({'message': entities[(len(entities) - 1) % len(text)]}), 200
 
 

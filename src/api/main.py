@@ -20,9 +20,6 @@ def analyze():
     if not service_name or not text:
         return jsonify({'error': 'Invalid request body'}), 400
 
-    if len(text) > 4096:
-        return jsonify({'error': 'Invalid text size'}), 400
-
     service_url = registry.get(service_name)
 
     if not service_url:

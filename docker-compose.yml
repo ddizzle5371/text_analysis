@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - FILENAME=main/main.py
+        - FILENAME=main.py
         - HOST=0.0.0.0
         - PORT=8000
     ports:
@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - FILENAME=service_discovery/service_discovery.py
+        - FILENAME=service_discovery.py
         - HOST=0.0.0.0
         - PORT=8001
     ports:
@@ -33,7 +33,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - FILENAME=entity_recognition/entity_recognition.py
+        - FILENAME=entity_recognition.py
         - HOST=0.0.0.0
         - PORT=8002
     ports:
@@ -43,7 +43,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - FILENAME=sentiment_analysis/sentiment_analysis.py
+        - FILENAME=sentiment_analysis.py
         - HOST=0.0.0.0
         - PORT=8003
     ports:
@@ -53,7 +53,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - FILENAME=word_count/word_count.py
+        - FILENAME=word_count.py
         - HOST=0.0.0.0
         - PORT=8004
     ports:
