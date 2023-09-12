@@ -2,7 +2,7 @@
 
 This text analysis microservices application is written in Python using Flask. The service discovery api manages
 different text analysis services via a service registry, providing endpoints to add, remove, and list the services.
-The central microservice, namely main, provides an endpoint that accepts the name of the service and text, which forwards
+The central microservice, namely main, provides an endpoint that accepts the name of the service and text, which 
 queries the service by the name in the service registry and forward the text to the service. It is guaranteed only one instance 
 of the service registry is created within the context of an application process, throttling the number of connections 
 to the Redis client of the service registry with a locking mechanism.
@@ -49,7 +49,7 @@ Content-Type: application/json
 200 OK
 Content-Type: application/json
 {
-  "message": "sentiment_analysis is successfully registered to the registry""
+  "message": "sentiment_analysis is successfully registered to the registry"
 }
 ```
 
@@ -66,14 +66,14 @@ Content-Type: application/json
 200 OK
 Content-Type: application/json
 {
-  "message": "sentiment_analysis is successfully removed from the registry""
+  "message": "sentiment_analysis is successfully removed from the registry"
 }
 ```
 
 3. Listing services
 ```HTTP
 GET /services
-Content-Type:application/json
+Content-Type: application/json
 
 200 OK
 Content-Type: application/json
@@ -144,5 +144,3 @@ NOTES
       url of `http://sentiment_analysis:{sentiment_analysis_port}/analyze` to register sentiment_analysis
     - make a POST request to `http://{main_host}:{main_port}/analyze` with service of `sentiment_analysis` and text, which
       forwards the request to `http://sentiment_analysis:{sentiment_analysis_port}/analyze` internally.
-  - Test can be dockerized too to 
-
