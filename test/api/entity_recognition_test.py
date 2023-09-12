@@ -1,8 +1,4 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
-from src.api.word_count import app, find_words
+from src.api.entity_recognition import app
 import pytest
 
 
@@ -18,7 +14,6 @@ def test_analyze_success(test_client):
     response = test_client.post('/analyze', json=data)
 
     assert response.status_code == 200
-    assert response.get_json()['message'] == str(len(find_words(data['text'])))
 
 
 def test_analyze_invalid_text_lenth(test_client):

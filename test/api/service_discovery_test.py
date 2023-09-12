@@ -1,7 +1,3 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
 from src.api.service_discovery import app
 from unittest import mock
 

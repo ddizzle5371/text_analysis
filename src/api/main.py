@@ -15,6 +15,11 @@ registry = ServiceRegistry(host=service_registry_host, port=service_registry_por
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    """
+    Queries service registry to get service_url and makes a request to it and returns the jsonified result.
+    If service is not found, then it returns a 404 with an error message.
+    :return: Jsonified response of the request to teh service url
+    """
     data = request.get_json()
     service_name = data.get('service')
     text = data.get('text')

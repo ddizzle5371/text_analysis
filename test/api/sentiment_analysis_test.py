@@ -1,7 +1,3 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
 from src.api.sentiment_analysis import app
 import pytest
 

@@ -35,7 +35,7 @@ services:
   entity_recognition:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_api
       args:
         - FILENAME=entity_recognition.py
         - HOST=0.0.0.0
@@ -45,7 +45,7 @@ services:
   sentiment_analysis:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_api
       args:
         - FILENAME=sentiment_analysis.py
         - HOST=0.0.0.0
@@ -55,10 +55,16 @@ services:
   word_count:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_api
       args:
         - FILENAME=word_count.py
         - HOST=0.0.0.0
         - PORT=8004
     ports:
       - 8004:8004
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile_test
+    env_file:
+      - test/.env

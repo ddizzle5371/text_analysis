@@ -11,6 +11,11 @@ app = Flask(__name__)
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    """
+    Process sentiment analysis and return the result. For now, it has a predefined
+    way to generate the result with the modulo operation.
+    :return: Jsonified response with a sentiment analysis result
+    """
     data = request.get_json()
     text = data.get('text')
 

@@ -14,12 +14,21 @@ registry = ServiceRegistry(host=service_registry_host, port=service_registry_por
 
 @app.route('/services', methods=['GET'])
 def list_services():
+    """
+    List all registered services from the service registry in a dictionary with service_name as key
+    and service_url as value.
+    :return: Jsonified response of a aictionary of all registered services
+    """
     services = {k.decode('utf-8'): v.decode('utf-8') for k, v in registry.list_all().items()}
     return jsonify({'message': services}), 200
 
 
 @app.route('/services', methods=['POST'])
 def register_service():
+    """
+    Register service to the serivce registry.
+    :return: Jsonified response
+    """
     data = request.get_json()
     service_name = data.get('service')
     service_url = data.get('url')
@@ -36,6 +45,10 @@ def register_service():
 
 @app.route('/services/<service_name>', methods=['DELETE'])
 def remove_service(service_name):
+    """
+    Delete service from the serivce registry.
+    :return: Jsonified response
+    """
     try:
         registry.delete(service_name)
         return jsonify({'message': f'{service_name} is successfully removed from the registry'}), 200

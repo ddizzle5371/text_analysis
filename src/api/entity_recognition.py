@@ -11,6 +11,11 @@ app = Flask(__name__)
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    """
+    Process entity recognition analysis and return the result. For now, it has a predefined
+    way to generate the result with the modulo operation.
+    :return: Jsonified response with entity recognition result
+    """
     data = request.get_json()
     text = data.get('text')
 

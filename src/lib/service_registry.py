@@ -3,6 +3,10 @@ import redis
 
 
 class ServiceRegistry:
+    """
+    Redis client wrapper that ensures instantiation of a single instance of ServiceRegistry.
+    Each operation is synchronized with lock.
+    """
     _instance = None
     _lock = Lock()
 
