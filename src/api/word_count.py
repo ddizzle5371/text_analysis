@@ -16,7 +16,7 @@ def find_words(text: str):
 @app.route('/analyze', methods=['POST'])
 def analyze():
     """
-    Process sentiment analysis and return the length of words in text.
+    Process sentiment analysis on text and return the length of words in text.
     :return: Jsonified response with length of words in text.
     """
     data = request.get_json()
