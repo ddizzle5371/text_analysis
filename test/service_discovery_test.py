@@ -16,14 +16,15 @@ def test_client():
 
 
 def test_list_services(test_client):
-    with mock.patch('src.api.service_discovery.registry.keys') as mock_keys:
-        mock_keys.return_value = [b'entity_recognition', b'word_count', b'sentiment_analysis']
-        with mock.patch('src.api.service_discovery.registry.get') as mock_get:
-            mock_get.side_effect = [b'http://entity_recognition:8002/analyze', b'http://word_count:8004/analyze',
-                                    b'http://sentiment_analysis:8003/analyze']
-            response = test_client.get('/services')
-            assert response.status_code == 200
-            assert len(response.get_json()['message']) == 3
+    with mock.patch('src.api.service_discovery.registry.list_all') as mock_list:
+        mock_list.return_value = {
+            b'entity_recognition': b'http://entity_recognition:8002/analyze',
+            b'word_count': b'http://word_count:8004/analyze',
+            b'sentiment_analysis': b'http://sentiment_analysis:8003/analyze'
+        }
+        response = test_client.get('/services')
+        assert response.status_code == 200
+        assert len(response.get_json()['message']) == 3
 
 
 @mock.patch('src.api.service_discovery.registry.set')

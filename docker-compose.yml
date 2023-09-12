@@ -7,11 +7,13 @@ services:
   main:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_service_registry
       args:
         - FILENAME=main.py
         - HOST=0.0.0.0
         - PORT=8000
+        - SERVICE_REGISTRY_HOST=registry
+        - SERVICE_REGISTRY_PORT=6379
     ports:
       - 8000:8000
     depends_on:
@@ -19,11 +21,13 @@ services:
   service_discovery:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_service_registry
       args:
         - FILENAME=service_discovery.py
         - HOST=0.0.0.0
         - PORT=8001
+        - SERVICE_REGISTRY_HOST=registry
+        - SERVICE_REGISTRY_PORT=6379
     ports:
       - 8001:8001
     depends_on:

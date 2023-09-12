@@ -1,14 +1,16 @@
 from flask import Flask, jsonify, request
+from src.lib.service_registry import ServiceRegistry
 
 import requests
-import redis
 import os
 
 host = os.environ['HOST']
 port = os.environ['PORT']
+service_registry_host = os.environ['SERVICE_REGISTRY_HOST']
+service_registry_port = os.environ['SERVICE_REGISTRY_PORT']
 
 app = Flask(__name__)
-registry = redis.Redis(host="registry")
+registry = ServiceRegistry(host=service_registry_host, port=service_registry_port)
 
 
 @app.route('/analyze', methods=['POST'])

@@ -1,0 +1,14 @@
+FROM python:3.9
+WORKDIR /app
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+ARG FILENAME
+ARG HOST
+ARG PORT
+ARG SERVICE_REGISTRY_HOST
+ARG SERVICE_REGISTRY_PORT
+COPY src/api/${FILENAME} /app/${FILENAME}
+COPY src/lib/service_registry.py /app/src/lib/service_registry.py
+RUN echo "HOST='$HOST' PORT='$PORT' SERVICE_REGISTRY_HOST='$SERVICE_REGISTRY_HOST' SERVICE_REGISTRY_PORT='$SERVICE_REGISTRY_PORT' python3 /app/$FILENAME \$@" > /app/entrypoint.sh
+ENTRYPOINT ["/bin/bash", "/app/entrypoint.sh"]

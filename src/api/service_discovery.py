@@ -1,18 +1,20 @@
 from flask import Flask, jsonify, request
+from src.lib.service_registry import ServiceRegistry
 
-import redis
 import os
 
 host = os.environ['HOST']
 port = os.environ['PORT']
+service_registry_host = os.environ['SERVICE_REGISTRY_HOST']
+service_registry_port = os.environ['SERVICE_REGISTRY_PORT']
 
 app = Flask(__name__)
-registry = redis.Redis(host="registry")
+registry = ServiceRegistry(host=service_registry_host, port=service_registry_port)
 
 
 @app.route('/services', methods=['GET'])
 def list_services():
-    services = {k.decode('utf-8'): registry.get(k).decode('utf-8') for k in registry.keys()}
+    services = {k.decode('utf-8'): v.decode('utf-8') for k, v in registry.list_all().items()}
     return jsonify({'message': services}), 200
 
 

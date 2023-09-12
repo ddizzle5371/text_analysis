@@ -16,7 +16,7 @@ def test_client():
         yield client
 
 
-@mock.patch('src.api.main.redis.Redis.get')
+@mock.patch('src.api.main.ServiceRegistry.get')
 @mock.patch('src.api.main.requests.post')
 def test_analyze_success(mock_post, mock_get, test_client):
     mock_get.return_value = 'http://entity_recognition:8002/analyze'
@@ -27,7 +27,7 @@ def test_analyze_success(mock_post, mock_get, test_client):
     assert response.status_code == 200
 
 
-@mock.patch('src.api.main.redis.Redis.get')
+@mock.patch('src.api.main.ServiceRegistry.get')
 @mock.patch('src.api.main.requests.post')
 def test_analyze_server_error(mock_post, mock_get, test_client):
     mock_get.return_value = 'http://entity_recognition:8002/analyze'
@@ -43,7 +43,7 @@ def test_analyze_invalid_request(test_client):
     assert response.status_code == 400
 
 
-@mock.patch('src.api.main.redis.Redis.get')
+@mock.patch('src.api.main.ServiceRegistry.get')
 def test_analyze_invalid_service_url(mock_get, test_client):
     mock_get.return_value = None
     response = test_client.post('/analyze', json={'service': 'entity_recognition', 'text': 'Stone Island'})
